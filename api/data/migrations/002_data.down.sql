@@ -1,0 +1,2 @@
+TRUNCATE table users CASCADE;
+TRUNCATE table cards CASCADE;

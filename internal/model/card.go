@@ -12,7 +12,8 @@ type Card struct {
 	CVV         int16
 	Balance     int64
 	UserID      int64
-	DeleteAt    gorm.DeletedAt
+	DeletedAt   gorm.DeletedAt
 	CreatedAt   time.Time
-	UpdateAt    time.Time
+	UpdatedAt   time.Time
+	AuditTrails []AuditTrail `gorm:"foreignKey:CardID;references:ID"`
 }
