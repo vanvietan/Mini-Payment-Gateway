@@ -2,11 +2,12 @@ package model
 
 import "time"
 
-// AuditTrail tracking card status by admin depends on
-type AuditTrail struct {
+// Transaction handle transaction and otp
+type Transaction struct {
 	ID        int64
+	CardID    int64
 	OrderID   int64
-	UserID    int64
+	OTP       string
 	Status    Status
 	CreatedAt time.Time
 	UpdatedAt time.Time
