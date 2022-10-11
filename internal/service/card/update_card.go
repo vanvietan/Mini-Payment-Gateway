@@ -13,6 +13,7 @@ func (i impl) UpdateCard(ctx context.Context, input model.Card, cardID int64) (m
 		return model.Card{}, err
 	}
 	cardF.ID = input.ID
+	cardF.Number = input.Number
 	cardF.ExpiredDate = input.ExpiredDate
 	cardF.CVV = input.CVV
 	cardF.Balance = input.Balance

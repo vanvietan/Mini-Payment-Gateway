@@ -7,7 +7,7 @@ Enums for Status in audit_trail table
 */
 
 const (
-	StatusInUse   Status = "IN_USE"
-	StatusExpired Status = "EXPIRED"
-	StatusDeleted Status = "DELETED"
+	StatusAccepted Status = "ACCEPTED"
+	StatusPending  Status = "PENDING"
+	StatusDeleted  Status = "DELETED"
 )

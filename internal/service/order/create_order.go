@@ -1,4 +1,4 @@
-package card
+package order
 
 import (
 	"context"
@@ -9,19 +9,18 @@ import (
 
 var getNextIDFunc = util.GetNextId
 
-// AddCard add a card
-func (i impl) AddCard(ctx context.Context, input model.Card) (model.Card, error) {
+func (i impl) CreateOrder(ctx context.Context, input model.Order) (model.Order, error) {
 	ID, err := getNextIDFunc()
 	if err != nil {
 		log.Printf("error when generate ID %v ", err)
-		return model.Card{}, err
+		return model.Order{}, err
 	}
 	input.ID = ID
 
-	card, err := i.cardRepo.AddCard(ctx, input)
+	order, err := i.orderRepo.CreateOrder(ctx, input)
 	if err != nil {
 		log.Printf("error when add a card: %+v", input)
-		return model.Card{}, err
+		return model.Order{}, err
 	}
-	return card, nil
+	return order, nil
 }

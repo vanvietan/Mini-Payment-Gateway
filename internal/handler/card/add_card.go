@@ -30,7 +30,7 @@ func checkValidation(r *http.Request) (model.Card, error) {
 	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
 		return model.Card{}, err
 	}
-	cardInput, err := input.validateAndMap()
+	cardInput, err := input.ValidateAndMap()
 	if err != nil {
 		return model.Card{}, err
 	}

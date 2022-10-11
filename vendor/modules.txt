@@ -38,6 +38,9 @@ github.com/jinzhu/now
 # github.com/sirupsen/logrus v1.9.0
 ## explicit; go 1.13
 github.com/sirupsen/logrus
+# github.com/sony/sonyflake v1.1.0
+## explicit; go 1.13
+github.com/sony/sonyflake
 # golang.org/x/crypto v0.0.0-20220722155217-630584e8d5aa
 ## explicit; go 1.17
 golang.org/x/crypto/pbkdf2

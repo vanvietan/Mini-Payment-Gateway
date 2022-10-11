@@ -14,7 +14,6 @@ func dataToResponseArray(cards []model.Card) []ACardResponse {
 		resp[i].UserID = s.UserID
 		resp[i].CreatedAt = s.CreatedAt
 		resp[i].UpdatedAt = s.UpdatedAt
-		resp[i].Histories = s.AuditTrails
 		resp[i].Balance = s.Balance
 	}
 	return resp
