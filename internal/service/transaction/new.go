@@ -12,6 +12,9 @@ type Service interface {
 
 	//CompareOTP compare OTP clients with db
 	CompareOTP(ctx context.Context, input string) error
+
+	//DeleteTransaction delete
+	DeleteTransaction(ctx context.Context, transID int64) error
 }
 type impl struct {
 	txRepo transaction.Repository

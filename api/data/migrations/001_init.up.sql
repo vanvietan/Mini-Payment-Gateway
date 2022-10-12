@@ -41,6 +41,7 @@ CREATE TABLE "transactions" (
                                 "card_id" bigint NOT NULL,
                                 "otp" varchar(20),
                                 "status" varchar(50),
+                                "deleted_at" timestamp,
                                 "created_at" timestamp,
                                 "updated_at" timestamp
 );

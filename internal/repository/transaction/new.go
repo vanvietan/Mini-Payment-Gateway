@@ -16,6 +16,9 @@ type Repository interface {
 
 	//UpdateTransaction update
 	UpdateTransaction(ctx context.Context, input model.Transaction) (model.Transaction, error)
+
+	//DeleteTransaction delete
+	DeleteTransaction(ctx context.Context, transID int64) error
 }
 type impl struct {
 	gormDB *gorm.DB
