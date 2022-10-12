@@ -16,6 +16,7 @@ const (
 func (i impl) GenerateOTP(ctx context.Context, transaction model.Transaction) (string, error) {
 	randNumber := randInt(min, max)
 	OTP := strconv.Itoa(randNumber)
+	transaction.OTP = OTP
 
 	tx := i.gormDB.Create(&transaction)
 	if tx.Error != nil {
