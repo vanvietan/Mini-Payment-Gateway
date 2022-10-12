@@ -10,6 +10,12 @@ import (
 type Repository interface {
 	//GenerateOTP generate otp and create a transaction
 	GenerateOTP(ctx context.Context, transaction model.Transaction) (string, error)
+
+	//CompareOTP compare the otp from clients with db
+	CompareOTP(ctx context.Context, otp string) (model.Transaction, error)
+
+	//UpdateTransaction update
+	UpdateTransaction(ctx context.Context, input model.Transaction) (model.Transaction, error)
 }
 type impl struct {
 	gormDB *gorm.DB

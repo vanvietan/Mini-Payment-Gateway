@@ -5,6 +5,7 @@ import (
 	"pg/internal/handler/common"
 )
 
+// InitAuthentication check cards information and generate otp
 func (h Handler) InitAuthentication(w http.ResponseWriter, r *http.Request) {
 	cardInput, orderInput, err := checkValidationAndAmount(r)
 	if err != nil {
