@@ -18,8 +18,8 @@ func (i impl) AddCard(ctx context.Context, input model.Card) (model.Card, error)
 	}
 	input.ID = ID
 
-	card, err := i.cardRepo.AddCard(ctx, input)
-	if err != nil {
+	card, errI := i.cardRepo.AddCard(ctx, input)
+	if errI != nil {
 		log.Printf("error when add a card: %+v", input)
 		return model.Card{}, err
 	}

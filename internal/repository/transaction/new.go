@@ -14,6 +14,9 @@ type Repository interface {
 	//CompareOTP compare the otp from clients with db
 	CompareOTP(ctx context.Context, otp string) (model.Transaction, error)
 
+	//FindTransactionByID find a transaction
+	FindTransactionByID(ctx context.Context, transID int64) (model.Transaction, error)
+
 	//UpdateTransaction update
 	UpdateTransaction(ctx context.Context, input model.Transaction) (model.Transaction, error)
 

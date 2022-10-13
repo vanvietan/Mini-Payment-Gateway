@@ -17,6 +17,7 @@ func (i impl) UpdateCard(ctx context.Context, input model.Card, cardID int64) (m
 	cardF.ExpiredDate = input.ExpiredDate
 	cardF.CVV = input.CVV
 	cardF.Balance = input.Balance
+	cardF.DeletedAt = input.DeletedAt
 
 	cardU, err := i.cardRepo.UpdateCard(ctx, cardF)
 	if err != nil {

@@ -15,6 +15,7 @@ func (h Handler) InitAuthentication(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+
 	card, errC := h.CardSvc.AddCard(r.Context(), cardInput)
 	if errC != nil {
 		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)

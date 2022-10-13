@@ -41,6 +41,9 @@ func (c InitAuthenticationInput) checkValidate() (model.Card, model.Order, error
 	if c.Balance <= 0 {
 		return model.Card{}, model.Order{}, errors.New("invalid balance")
 	}
+	if c.Balance < c.Amount {
+		return model.Card{}, model.Order{}, errors.New("balance is too low")
+	}
 	return model.Card{
 			Number:      c.Number,
 			ExpiredDate: c.ExpiredDate,
@@ -59,9 +62,7 @@ type OTPResponse struct {
 }
 
 func checkValidationAndAmount(r *http.Request) (model.Card, model.Order, error) {
-	//var input card.ACardInput
 	var input InitAuthenticationInput
-	//var amount AmountInput
 	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
 		return model.Card{}, model.Order{}, err
 	}

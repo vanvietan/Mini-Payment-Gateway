@@ -22,6 +22,9 @@ type Repository interface {
 
 	//DeleteCard delete a card
 	DeleteCard(ctx context.Context, cardID int64) error
+
+	//GetCardByNumber get card by its number
+	GetCardByNumber(ctx context.Context, number string) (model.Card, error)
 }
 
 type impl struct {

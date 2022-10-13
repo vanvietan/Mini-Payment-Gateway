@@ -10,6 +10,9 @@ import (
 type Service interface {
 	//CreateOrder create order
 	CreateOrder(ctx context.Context, input model.Order) (model.Order, error)
+
+	//GetOrderByID get an order by its id
+	GetOrderByID(ctx context.Context, id int64) (model.Order, error)
 }
 type impl struct {
 	orderRepo order.Repository
