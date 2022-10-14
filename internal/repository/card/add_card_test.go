@@ -2,6 +2,7 @@ package card
 
 import (
 	"context"
+	"errors"
 	"gorm.io/gorm"
 	"pg/api/data"
 	"pg/internal/model"
@@ -42,6 +43,21 @@ func TestAddCard(t *testing.T) {
 				CreatedAt:   time.Date(2022, 4, 15, 16, 0, 0, 0, time.UTC),
 				UpdatedAt:   time.Date(2022, 4, 15, 16, 0, 0, 0, time.UTC),
 			},
+		},
+		"fail: error create": {
+			givenResult: model.Card{
+				ID:          103,
+				Number:      "103",
+				ExpiredDate: time.Date(2023, 4, 15, 16, 0, 0, 0, time.UTC),
+				CVV:         "123456",
+				Balance:     1000,
+				UserID:      -100,
+				DeletedAt:   gorm.DeletedAt{},
+				CreatedAt:   time.Date(2022, 4, 15, 16, 0, 0, 0, time.UTC),
+				UpdatedAt:   time.Date(2022, 4, 15, 16, 0, 0, 0, time.UTC),
+			},
+			expResult: model.Card{},
+			expErr:    errors.New("ERROR: insert or update on table \"cards\" violates foreign key constraint \"cards_user_id_fkey\" (SQLSTATE 23503)"),
 		},
 	}
 	dbConn, errDB := data.GetDatabaseConnection()
