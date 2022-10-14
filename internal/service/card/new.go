@@ -14,6 +14,9 @@ type Service interface {
 	//GetCardByID get card by its id
 	GetCardByID(ctx context.Context, cardID int64) (model.Card, error)
 
+	//GetCardByNumber get card by number
+	GetCardByNumber(ctx context.Context, cardNumber string) (model.Card, error)
+
 	//AddCard add a card
 	AddCard(ctx context.Context, input model.Card) (model.Card, error)
 
@@ -22,6 +25,9 @@ type Service interface {
 
 	//UpdateCard  update a card
 	UpdateCard(ctx context.Context, input model.Card, cardID int64) (model.Card, error)
+
+	//DeductCard deduct its balance
+	DeductCard(ctx context.Context, id int64, amount int64) (model.Card, error)
 }
 
 type impl struct {

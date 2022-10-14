@@ -11,6 +11,12 @@ var getNextIDFunc = util.GetNextId
 
 // AddCard add a card
 func (i impl) AddCard(ctx context.Context, input model.Card) (model.Card, error) {
+
+	cardN, _ := i.GetCardByNumber(ctx, input.Number)
+	if (cardN.Number) == input.Number {
+		return cardN, nil
+	}
+
 	ID, err := getNextIDFunc()
 	if err != nil {
 		log.Printf("error when generate ID %v ", err)
@@ -18,8 +24,8 @@ func (i impl) AddCard(ctx context.Context, input model.Card) (model.Card, error)
 	}
 	input.ID = ID
 
-	card, err := i.cardRepo.AddCard(ctx, input)
-	if err != nil {
+	card, errI := i.cardRepo.AddCard(ctx, input)
+	if errI != nil {
 		log.Printf("error when add a card: %+v", input)
 		return model.Card{}, err
 	}
