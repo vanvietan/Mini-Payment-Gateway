@@ -13,6 +13,9 @@ type Repository interface {
 
 	//GetOrderByID get an order by its id
 	GetOrderByID(ctx context.Context, id int64) (model.Order, error)
+
+	//DeleteOrder delete an order
+	DeleteOrder(ctx context.Context, id int64) error
 }
 type impl struct {
 	gormDB *gorm.DB

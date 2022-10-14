@@ -7,7 +7,7 @@ import (
 
 func (i impl) GetCardByNumber(ctx context.Context, number string) (model.Card, error) {
 	card := model.Card{}
-	tx := i.gormDB.Where("number = ?", number).Find(&card)
+	tx := i.gormDB.Where("number = ?", number).First(&card)
 	if tx.Error != nil {
 		return model.Card{}, tx.Error
 	}

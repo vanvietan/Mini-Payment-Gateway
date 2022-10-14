@@ -8,9 +8,9 @@ CREATE TABLE "users" (
 
 CREATE TABLE "cards" (
                          "id" bigint PRIMARY KEY NOT NULL,
-                         "number" varchar(50) NOT NULL,
+                         "number" varchar(50) UNIQUE NOT NULL,
                          "expired_date" date,
-                         "user_id" bigint NOT NULL,
+                         "user_id" bigint ,
                          "cvv" varchar(20),
                          "balance" bigint,
                          "deleted_at" timestamp,
