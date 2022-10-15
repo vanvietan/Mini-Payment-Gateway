@@ -13,7 +13,7 @@ type Card struct {
 	CVV         string
 	Balance     int64
 	UserID      int64
-	DeletedAt   gorm.DeletedAt
+	DeletedAt   gorm.DeletedAt `json:"deleted_at,omitempty"`
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 }
