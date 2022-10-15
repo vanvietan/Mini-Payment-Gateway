@@ -8,7 +8,7 @@ import (
 // CompareOTP compare OTP with clients
 func (i impl) CompareOTP(ctx context.Context, otp string) (model.Transaction, error) {
 	trans := model.Transaction{}
-	tx := i.gormDB.Where("otp = ?", otp).Find(&trans)
+	tx := i.gormDB.Where("otp = ?", otp).First(&trans)
 	if tx.Error != nil {
 		return model.Transaction{}, tx.Error
 	}
