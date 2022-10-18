@@ -14,20 +14,20 @@ type Service struct {
 	mock.Mock
 }
 
-// FindTransactionByOTP provides a mock function with given fields: ctx, input
-func (_m *Service) FindTransactionByOTP(ctx context.Context, input string) (model.Transaction, error) {
-	ret := _m.Called(ctx, input)
+// CreateTransaction provides a mock function with given fields: ctx, cardID, orderID
+func (_m *Service) CreateTransaction(ctx context.Context, cardID int64, orderID int64) (string, error) {
+	ret := _m.Called(ctx, cardID, orderID)
 
-	var r0 model.Transaction
-	if rf, ok := ret.Get(0).(func(context.Context, string) model.Transaction); ok {
-		r0 = rf(ctx, input)
+	var r0 string
+	if rf, ok := ret.Get(0).(func(context.Context, int64, int64) string); ok {
+		r0 = rf(ctx, cardID, orderID)
 	} else {
-		r0 = ret.Get(0).(model.Transaction)
+		r0 = ret.Get(0).(string)
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context, string) error); ok {
-		r1 = rf(ctx, input)
+	if rf, ok := ret.Get(1).(func(context.Context, int64, int64) error); ok {
+		r1 = rf(ctx, cardID, orderID)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -70,25 +70,53 @@ func (_m *Service) FindTransactionByID(ctx context.Context, transID int64) (mode
 	return r0, r1
 }
 
-// CreateTransaction provides a mock function with given fields: ctx, cardID, orderID
-func (_m *Service) CreateTransaction(ctx context.Context, cardID int64, orderID int64) (string, error) {
-	ret := _m.Called(ctx, cardID, orderID)
+// FindTransactionByOTP provides a mock function with given fields: ctx, input
+func (_m *Service) FindTransactionByOTP(ctx context.Context, input string) (model.Transaction, error) {
+	ret := _m.Called(ctx, input)
 
-	var r0 string
-	if rf, ok := ret.Get(0).(func(context.Context, int64, int64) string); ok {
-		r0 = rf(ctx, cardID, orderID)
+	var r0 model.Transaction
+	if rf, ok := ret.Get(0).(func(context.Context, string) model.Transaction); ok {
+		r0 = rf(ctx, input)
 	} else {
-		r0 = ret.Get(0).(string)
+		r0 = ret.Get(0).(model.Transaction)
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context, int64, int64) error); ok {
-		r1 = rf(ctx, cardID, orderID)
+	if rf, ok := ret.Get(1).(func(context.Context, string) error); ok {
+		r1 = rf(ctx, input)
 	} else {
 		r1 = ret.Error(1)
 	}
 
 	return r0, r1
+}
+
+// InitAuthentication provides a mock function with given fields: ctx, inputCard, inputOrder
+func (_m *Service) InitAuthentication(ctx context.Context, inputCard model.Card, inputOrder model.Order) (model.Card, model.Order, error) {
+	ret := _m.Called(ctx, inputCard, inputOrder)
+
+	var r0 model.Card
+	if rf, ok := ret.Get(0).(func(context.Context, model.Card, model.Order) model.Card); ok {
+		r0 = rf(ctx, inputCard, inputOrder)
+	} else {
+		r0 = ret.Get(0).(model.Card)
+	}
+
+	var r1 model.Order
+	if rf, ok := ret.Get(1).(func(context.Context, model.Card, model.Order) model.Order); ok {
+		r1 = rf(ctx, inputCard, inputOrder)
+	} else {
+		r1 = ret.Get(1).(model.Order)
+	}
+
+	var r2 error
+	if rf, ok := ret.Get(2).(func(context.Context, model.Card, model.Order) error); ok {
+		r2 = rf(ctx, inputCard, inputOrder)
+	} else {
+		r2 = ret.Error(2)
+	}
+
+	return r0, r1, r2
 }
 
 type mockConstructorTestingTNewService interface {

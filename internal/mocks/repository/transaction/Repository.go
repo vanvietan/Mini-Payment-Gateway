@@ -14,20 +14,20 @@ type Repository struct {
 	mock.Mock
 }
 
-// FindTransactionByOTP provides a mock function with given fields: ctx, otp
-func (_m *Repository) FindTransactionByOTP(ctx context.Context, otp string) (model.Transaction, error) {
-	ret := _m.Called(ctx, otp)
+// CreateTransaction provides a mock function with given fields: ctx, _a1
+func (_m *Repository) CreateTransaction(ctx context.Context, _a1 model.Transaction) (string, error) {
+	ret := _m.Called(ctx, _a1)
 
-	var r0 model.Transaction
-	if rf, ok := ret.Get(0).(func(context.Context, string) model.Transaction); ok {
-		r0 = rf(ctx, otp)
+	var r0 string
+	if rf, ok := ret.Get(0).(func(context.Context, model.Transaction) string); ok {
+		r0 = rf(ctx, _a1)
 	} else {
-		r0 = ret.Get(0).(model.Transaction)
+		r0 = ret.Get(0).(string)
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context, string) error); ok {
-		r1 = rf(ctx, otp)
+	if rf, ok := ret.Get(1).(func(context.Context, model.Transaction) error); ok {
+		r1 = rf(ctx, _a1)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -70,20 +70,20 @@ func (_m *Repository) FindTransactionByID(ctx context.Context, transID int64) (m
 	return r0, r1
 }
 
-// CreateTransaction provides a mock function with given fields: ctx, _a1
-func (_m *Repository) CreateTransaction(ctx context.Context, _a1 model.Transaction) (string, error) {
-	ret := _m.Called(ctx, _a1)
+// FindTransactionByOTP provides a mock function with given fields: ctx, otp
+func (_m *Repository) FindTransactionByOTP(ctx context.Context, otp string) (model.Transaction, error) {
+	ret := _m.Called(ctx, otp)
 
-	var r0 string
-	if rf, ok := ret.Get(0).(func(context.Context, model.Transaction) string); ok {
-		r0 = rf(ctx, _a1)
+	var r0 model.Transaction
+	if rf, ok := ret.Get(0).(func(context.Context, string) model.Transaction); ok {
+		r0 = rf(ctx, otp)
 	} else {
-		r0 = ret.Get(0).(string)
+		r0 = ret.Get(0).(model.Transaction)
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context, model.Transaction) error); ok {
-		r1 = rf(ctx, _a1)
+	if rf, ok := ret.Get(1).(func(context.Context, string) error); ok {
+		r1 = rf(ctx, otp)
 	} else {
 		r1 = ret.Error(1)
 	}

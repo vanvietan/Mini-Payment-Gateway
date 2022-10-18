@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 	"pg/internal/handler/common"
+	"pg/internal/model"
 )
 
 // EnterOTP enter its otp
@@ -41,6 +42,14 @@ func (h Handler) EnterOTP(w http.ResponseWriter, r *http.Request) {
 
 	common.ResponseJSON(w, http.StatusOK, toSuccessResponse(card))
 
+}
+
+func toSuccessResponse(card model.Card) PayResponse {
+	return PayResponse{
+		Message: "Successful Transaction",
+		Number:  card.Number,
+		Balance: card.Balance,
+	}
 }
 
 func checkOTP(r *http.Request) (string, error) {
