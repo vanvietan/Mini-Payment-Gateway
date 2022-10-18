@@ -1,14 +1,16 @@
 package transaction
 
 import (
+	"errors"
 	"net/http"
 	"pg/internal/handler/common"
-	"pg/internal/model"
 )
 
-// EnterOTPPay enterOTP and Pay
-func (h Handler) EnterOTPPay(w http.ResponseWriter, r *http.Request) {
-	inputOTP, err := checkInputOTP(r)
+// EnterOTP enter its otp
+func (h Handler) EnterOTP(w http.ResponseWriter, r *http.Request) {
+	//r.ParseForm()
+	//otp := r.Form.Get("otp")
+	inputOTP, err := checkOTP(r)
 	if err != nil {
 		common.ResponseJSON(w, http.StatusBadRequest, common.CommonErrorResponse{
 			Code:        "invalid_request",
@@ -40,12 +42,19 @@ func (h Handler) EnterOTPPay(w http.ResponseWriter, r *http.Request) {
 	}
 
 	common.ResponseJSON(w, http.StatusOK, toSuccessResponse(card))
+
 }
 
-func toSuccessResponse(card model.Card) PayResponse {
-	return PayResponse{
-		Message: "Successful Transaction",
-		Number:  card.Number,
-		Balance: card.Balance,
+func checkOTP(r *http.Request) (string, error) {
+	r.ParseForm()
+	otp := r.Form.Get("otp")
+	//transID := r.Form.Get("trans")
+	if otp == "" {
+		return "", errors.New("invalid OTP")
 	}
+	//i, err := strconv.ParseInt(transID, 10, 64)
+	//if err != nil {
+	//	return "", 0, errors.New("invalid transID")
+	//}
+	return otp, nil
 }

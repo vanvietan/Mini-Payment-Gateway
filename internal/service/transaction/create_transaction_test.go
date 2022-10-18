@@ -62,7 +62,7 @@ func TestGenerateOTP(t *testing.T) {
 		t.Run(s, func(t *testing.T) {
 			//GIVEN
 			instance := new(mocks.Repository)
-			instance.On("GenerateOTP", mock.Anything, tc.generateOTP.mockTrans).
+			instance.On("CreateTransaction", mock.Anything, tc.generateOTP.mockTrans).
 				Return(tc.generateOTP.mockResp, tc.generateOTP.mockErr)
 
 			getNextIDFunc = func() (int64, error) {
@@ -77,7 +77,7 @@ func TestGenerateOTP(t *testing.T) {
 
 			//WHEN
 			svc := New(instance)
-			rs, err := svc.GenerateOTP(context.Background(), tc.givenCardID, tc.givenOrderID)
+			rs, err := svc.CreateTransaction(context.Background(), tc.givenCardID, tc.givenOrderID)
 
 			//THEN
 			if tc.expErr != nil {

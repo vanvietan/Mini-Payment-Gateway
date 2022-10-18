@@ -15,30 +15,27 @@ func (h Handler) InitAuthentication(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-
-	card, errC := h.CardSvc.AddCard(r.Context(), cardInput)
-	if errC != nil {
-		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
-		return
-	}
-	order, errO := h.OrderSvc.CreateOrder(r.Context(), orderInput)
-	if errO != nil {
+	card, order, errB := h.TxSvc.InitAuthentication(r.Context(), cardInput, orderInput)
+	if errB != nil {
 		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
 		return
 	}
 
-	OTP, errT := h.TxSvc.GenerateOTP(r.Context(), card.ID, order.ID)
+	_, errT := h.TxSvc.CreateTransaction(r.Context(), card.ID, order.ID)
 	if errT != nil {
 		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
 		return
 	}
+	//tpl := template.Must(template.New("trans").Parse(strconv.FormatInt(trans.ID, 10)))
+	//tpl, _ := template.New("trans").Parse(string(trans.ID))
+	//tpl.Execute(w, nil)
 
-	common.ResponseJSON(w, http.StatusOK, toGetGenerateOTPResponse(OTP))
+	http.Redirect(w, r, "/form", http.StatusOK)
+	//common.ResponseJSON(w, http.StatusOK, toGetGenerateOTPResponse())
 }
 
-func toGetGenerateOTPResponse(s string) OTPResponse {
+func toGetGenerateOTPResponse() OTPResponse {
 	return OTPResponse{
-		Message: "Here is your OTP code",
-		OTP:     s,
+		Message: "created a transaction",
 	}
 }

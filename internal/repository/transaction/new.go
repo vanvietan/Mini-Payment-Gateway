@@ -8,11 +8,11 @@ import (
 
 // Repository contains all transaction repository functions
 type Repository interface {
-	//GenerateOTP generate otp and create a transaction
-	GenerateOTP(ctx context.Context, transaction model.Transaction) (string, error)
+	//CreateTransaction generate otp and create a transaction
+	CreateTransaction(ctx context.Context, transaction model.Transaction) (model.Transaction, error)
 
-	//CompareOTP compare the otp from clients with db
-	CompareOTP(ctx context.Context, otp string) (model.Transaction, error)
+	//FindTransactionByOTP compare the otp from clients with db
+	FindTransactionByOTP(ctx context.Context, otp string) (model.Transaction, error)
 
 	//FindTransactionByID find a transaction
 	FindTransactionByID(ctx context.Context, transID int64) (model.Transaction, error)

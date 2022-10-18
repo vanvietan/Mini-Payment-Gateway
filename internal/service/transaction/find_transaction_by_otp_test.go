@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-func TestCompareOTP(t *testing.T) {
+func TestFindTransactionByOTP(t *testing.T) {
 	type compareOTP struct {
 		mockIn    string
 		mockTrans model.Transaction
@@ -74,14 +74,14 @@ func TestCompareOTP(t *testing.T) {
 		t.Run(s, func(t *testing.T) {
 			//GIVEN
 			instance := new(mocks.Repository)
-			instance.On("CompareOTP", mock.Anything, tc.compareOTP.mockIn).
+			instance.On("FindTransactionByOTP", mock.Anything, tc.compareOTP.mockIn).
 				Return(tc.compareOTP.mockResp, tc.compareOTP.mockErr)
 			instance.On("UpdateTransaction", mock.Anything, tc.compareOTP.mockTrans).
 				Return(tc.compareOTP.mockResp, tc.compareOTP.mockErr)
 
 			//WHEN
 			svc := New(instance)
-			rs, err := svc.CompareOTP(context.Background(), tc.givenIn)
+			rs, err := svc.FindTransactionByOTP(context.Background(), tc.givenIn)
 
 			//THEN
 			if tc.expErr != nil {

@@ -14,8 +14,8 @@ type Service struct {
 	mock.Mock
 }
 
-// CompareOTP provides a mock function with given fields: ctx, input
-func (_m *Service) CompareOTP(ctx context.Context, input string) (model.Transaction, error) {
+// FindTransactionByOTP provides a mock function with given fields: ctx, input
+func (_m *Service) FindTransactionByOTP(ctx context.Context, input string) (model.Transaction, error) {
 	ret := _m.Called(ctx, input)
 
 	var r0 model.Transaction
@@ -70,8 +70,8 @@ func (_m *Service) FindTransactionByID(ctx context.Context, transID int64) (mode
 	return r0, r1
 }
 
-// GenerateOTP provides a mock function with given fields: ctx, cardID, orderID
-func (_m *Service) GenerateOTP(ctx context.Context, cardID int64, orderID int64) (string, error) {
+// CreateTransaction provides a mock function with given fields: ctx, cardID, orderID
+func (_m *Service) CreateTransaction(ctx context.Context, cardID int64, orderID int64) (string, error) {
 	ret := _m.Called(ctx, cardID, orderID)
 
 	var r0 string

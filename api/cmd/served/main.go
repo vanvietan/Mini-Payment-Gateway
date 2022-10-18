@@ -33,7 +33,7 @@ func main() {
 	cardRepository := cardRepo.New(dbConn)
 	cardService := cardSvc.New(cardRepository)
 	transactionRepository := transactionRepo.New(dbConn)
-	transactionService := transactionSvc.New(transactionRepository)
+	transactionService := transactionSvc.New(transactionRepository, cardService, orderService)
 
 	router.New(r, cardService, transactionService, orderService)
 
