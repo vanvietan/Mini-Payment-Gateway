@@ -8,8 +8,6 @@ import (
 
 // EnterOTP enter its otp
 func (h Handler) EnterOTP(w http.ResponseWriter, r *http.Request) {
-	//r.ParseForm()
-	//otp := r.Form.Get("otp")
 	inputOTP, err := checkOTP(r)
 	if err != nil {
 		common.ResponseJSON(w, http.StatusBadRequest, common.CommonErrorResponse{

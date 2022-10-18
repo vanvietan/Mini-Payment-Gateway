@@ -26,12 +26,13 @@ func (h Handler) InitAuthentication(w http.ResponseWriter, r *http.Request) {
 		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
 		return
 	}
+
 	//tpl := template.Must(template.New("trans").Parse(strconv.FormatInt(trans.ID, 10)))
 	//tpl, _ := template.New("trans").Parse(string(trans.ID))
 	//tpl.Execute(w, nil)
 
 	http.Redirect(w, r, "/form", http.StatusOK)
-	//common.ResponseJSON(w, http.StatusOK, toGetGenerateOTPResponse())
+	common.ResponseJSON(w, http.StatusOK, toGetGenerateOTPResponse())
 }
 
 func toGetGenerateOTPResponse() OTPResponse {
