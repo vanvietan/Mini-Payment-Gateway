@@ -12,7 +12,7 @@ var getNextIDFunc = util.GetNextId
 // AddCard add a card
 func (i impl) AddCard(ctx context.Context, input model.Card) (model.Card, error) {
 
-	cardN, _ := i.GetCardByNumber(ctx, input.Number)
+	cardN, _ := i.cardRepo.GetCardByNumber(ctx, input.Number)
 	if (cardN.Number) == input.Number {
 		return cardN, nil
 	}

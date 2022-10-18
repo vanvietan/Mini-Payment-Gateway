@@ -12,9 +12,11 @@ const (
 	max = 999999
 )
 
+var randomFunc = randInt
+
 // GenerateOTP generate OTP and create a authentication
 func (i impl) GenerateOTP(ctx context.Context, transaction model.Transaction) (string, error) {
-	randNumber := randInt(min, max)
+	randNumber := randomFunc(min, max)
 	OTP := strconv.Itoa(randNumber)
 	transaction.OTP = OTP
 

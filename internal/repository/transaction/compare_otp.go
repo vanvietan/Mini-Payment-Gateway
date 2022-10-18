@@ -5,7 +5,7 @@ import (
 	"pg/internal/model"
 )
 
-// CompareOTP compare OTP with clients
+// CompareOTP compare OTP with clients( find by otp)
 func (i impl) CompareOTP(ctx context.Context, otp string) (model.Transaction, error) {
 	trans := model.Transaction{}
 	tx := i.gormDB.Where("otp = ?", otp).First(&trans)
