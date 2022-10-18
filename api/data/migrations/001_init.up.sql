@@ -42,7 +42,8 @@ CREATE TABLE "transactions" (
                                 "otp" varchar(20),
                                 "status" varchar(50),
                                 "created_at" timestamp,
-                                "updated_at" timestamp
+                                "updated_at" timestamp,
+                                "deleted_at" timestamp
 );
 
 ALTER TABLE "cards" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
