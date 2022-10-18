@@ -43,7 +43,6 @@ func (h Handler) EnterOTP(w http.ResponseWriter, r *http.Request) {
 	common.ResponseJSON(w, http.StatusOK, toSuccessResponse(card))
 
 }
-
 func toSuccessResponse(card model.Card) PayResponse {
 	return PayResponse{
 		Message: "Successful Transaction",
@@ -59,7 +58,10 @@ func checkOTP(r *http.Request) (string, error) {
 	if otp == "" {
 		return "", errors.New("invalid OTP")
 	}
-	//i, err := strconv.ParseInt(transID, 10, 64)
+
+	//log.Println(transID)
+	//i, _ := strconv.ParseInt(transID, 10, 64)
+	//log.Println(i)
 	//if err != nil {
 	//	return "", 0, errors.New("invalid transID")
 	//}

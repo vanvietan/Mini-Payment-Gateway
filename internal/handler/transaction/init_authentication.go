@@ -21,15 +21,11 @@ func (h Handler) InitAuthentication(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, errT := h.TxSvc.CreateTransaction(r.Context(), card.ID, order.ID)
-	if errT != nil {
+	_, errX := h.TxSvc.CreateTransaction(r.Context(), card.ID, order.ID)
+	if errX != nil {
 		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
 		return
 	}
-
-	//tpl := template.Must(template.New("trans").Parse(strconv.FormatInt(trans.ID, 10)))
-	//tpl, _ := template.New("trans").Parse(string(trans.ID))
-	//tpl.Execute(w, nil)
 
 	http.Redirect(w, r, "/form", http.StatusOK)
 	common.ResponseJSON(w, http.StatusOK, toGetGenerateOTPResponse())
