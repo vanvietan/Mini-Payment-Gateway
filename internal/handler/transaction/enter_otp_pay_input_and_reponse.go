@@ -5,11 +5,6 @@ import (
 	"net/http"
 )
 
-// InputOTP input otp
-//type InputOTP struct {
-//	OTP string `json:"OTP"`
-//}
-
 // PayResponse message of successful transaction
 type PayResponse struct {
 	Message string `json:"message"`

@@ -32,6 +32,7 @@ func (h Handler) EnterOTPPay(w http.ResponseWriter, r *http.Request) {
 		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
 		return
 	}
+
 	errG := h.TxSvc.DeleteTransaction(r.Context(), trans.ID)
 	if errG != nil {
 		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
