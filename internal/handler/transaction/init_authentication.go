@@ -15,30 +15,24 @@ func (h Handler) InitAuthentication(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-
-	card, errC := h.CardSvc.AddCard(r.Context(), cardInput)
-	if errC != nil {
-		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
-		return
-	}
-	order, errO := h.OrderSvc.CreateOrder(r.Context(), orderInput)
-	if errO != nil {
+	card, order, errB := h.TxSvc.InitAuthentication(r.Context(), cardInput, orderInput)
+	if errB != nil {
 		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
 		return
 	}
 
-	OTP, errT := h.TxSvc.GenerateOTP(r.Context(), card.ID, order.ID)
-	if errT != nil {
+	_, errX := h.TxSvc.CreateTransaction(r.Context(), card.ID, order.ID)
+	if errX != nil {
 		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
 		return
 	}
 
-	common.ResponseJSON(w, http.StatusOK, toGetGenerateOTPResponse(OTP))
+	http.Redirect(w, r, "/form", http.StatusOK)
+	common.ResponseJSON(w, http.StatusOK, toGetGenerateOTPResponse())
 }
 
-func toGetGenerateOTPResponse(s string) OTPResponse {
+func toGetGenerateOTPResponse() OTPResponse {
 	return OTPResponse{
-		Message: "Here is your OTP code",
-		OTP:     s,
+		Message: "created a transaction",
 	}
 }

@@ -51,9 +51,9 @@ services:
     links:
       - db
     volumes:
-       - ./db/migration/:/migrations
+       - ./api/data/migrations:/migration
     working_dir: /migration
-    command: ["-path", "/migrations", "-database",  "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB_NAME}?sslmode=disable", "up", "2"]
+    command: ["-path", "/migration", "-database",  "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB_NAME}?sslmode=disable", "up", "2"]
     depends_on:
       - db
 #    restart: on-failure
@@ -64,9 +64,9 @@ services:
     links:
       - db
     volumes:
-      - ./data/migrations/:/migrations
-    working_dir: /migrations
-    command: ["-path", "/migrations", "-database",  "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB_NAME}?sslmode=disable", "down", "2"]
+      - ./api/data/migrations:/migration
+    working_dir: /migration
+    command: ["-path", "/migration", "-database",  "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB_NAME}?sslmode=disable", "down", "2"]
     depends_on:
       - db
 

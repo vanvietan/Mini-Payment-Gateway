@@ -12,7 +12,7 @@ CREATE TABLE "cards" (
                          "expired_date" date,
                          "user_id" bigint ,
                          "cvv" varchar(20),
-                         "balance" bigint,
+                         "balance" bigint CHECK (balance > 0),
                          "deleted_at" timestamp,
                          "created_at" timestamp,
                          "updated_at" timestamp
@@ -29,7 +29,7 @@ CREATE TABLE "audit_trail" (
 
 CREATE TABLE "orders" (
                           "id" bigint PRIMARY KEY NOT NULL,
-                          "amount" bigint NOT NULL,
+                          "amount" bigint CHECK (amount > 0) NOT NULL ,
                           "deleted_at" timestamp,
                           "created_at" timestamp,
                           "updated_at" timestamp
@@ -42,7 +42,8 @@ CREATE TABLE "transactions" (
                                 "otp" varchar(20),
                                 "status" varchar(50),
                                 "created_at" timestamp,
-                                "updated_at" timestamp
+                                "updated_at" timestamp,
+                                "deleted_at" timestamp
 );
 
 ALTER TABLE "cards" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");

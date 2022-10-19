@@ -11,32 +11,37 @@ import (
 	"time"
 )
 
-func TestCompareOTP(t *testing.T) {
+func TestGenerateOTP(t *testing.T) {
 	type arg struct {
-		givenString string
-		expResult   model.Transaction
+		givenResult model.Transaction
+		expResult   string
 		expErr      error
 	}
 	tcs := map[string]arg{
 		"success: ": {
-			givenString: "123456",
-			expResult: model.Transaction{
-				ID:        100,
+			givenResult: model.Transaction{
+				ID:        101,
 				CardID:    100,
 				OrderID:   100,
-				OTP:       "123456",
 				Status:    "PENDING",
 				CreatedAt: time.Date(2022, 03, 14, 14, 0, 0, 0, time.UTC),
 				UpdatedAt: time.Date(2022, 03, 14, 14, 0, 0, 0, time.UTC),
 			},
+			expResult: "512369",
 		},
-		"fail: record not found": {
-			givenString: "123",
-			expResult:   model.Transaction{},
-			expErr:      errors.New("record not found"),
+		"fail: ": {
+			givenResult: model.Transaction{
+				ID:        100,
+				CardID:    100,
+				OrderID:   100,
+				Status:    "PENDING",
+				CreatedAt: time.Date(2022, 03, 14, 14, 0, 0, 0, time.UTC),
+				UpdatedAt: time.Date(2022, 03, 14, 14, 0, 0, 0, time.UTC),
+			},
+			expResult: "",
+			expErr:    errors.New("ERROR: duplicate key value violates unique constraint \"transactions_pkey\" (SQLSTATE 23505)"),
 		},
 	}
-
 	dbConn, errDB := data.GetDatabaseConnection()
 	require.NoError(t, errDB)
 
@@ -49,7 +54,7 @@ func TestCompareOTP(t *testing.T) {
 			instance := New(dbConn)
 
 			//WHEN
-			rs, err := instance.CompareOTP(context.Background(), tc.givenString)
+			rs, err := instance.CreateTransaction(context.Background(), tc.givenResult)
 
 			//THEN
 			if tc.expErr != nil {

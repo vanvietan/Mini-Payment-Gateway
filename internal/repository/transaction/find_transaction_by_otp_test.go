@@ -11,37 +11,32 @@ import (
 	"time"
 )
 
-func TestGenerateOTP(t *testing.T) {
+func TestCompareOTP(t *testing.T) {
 	type arg struct {
-		givenResult model.Transaction
-		expResult   string
+		givenString string
+		expResult   model.Transaction
 		expErr      error
 	}
 	tcs := map[string]arg{
 		"success: ": {
-			givenResult: model.Transaction{
-				ID:        101,
-				CardID:    100,
-				OrderID:   100,
-				Status:    "PENDING",
-				CreatedAt: time.Date(2022, 03, 14, 14, 0, 0, 0, time.UTC),
-				UpdatedAt: time.Date(2022, 03, 14, 14, 0, 0, 0, time.UTC),
-			},
-			expResult: "512369",
-		},
-		"fail: ": {
-			givenResult: model.Transaction{
+			givenString: "123456",
+			expResult: model.Transaction{
 				ID:        100,
 				CardID:    100,
 				OrderID:   100,
+				OTP:       "123456",
 				Status:    "PENDING",
 				CreatedAt: time.Date(2022, 03, 14, 14, 0, 0, 0, time.UTC),
 				UpdatedAt: time.Date(2022, 03, 14, 14, 0, 0, 0, time.UTC),
 			},
-			expResult: "",
-			expErr:    errors.New("ERROR: duplicate key value violates unique constraint \"transactions_pkey\" (SQLSTATE 23505)"),
+		},
+		"fail: record not found": {
+			givenString: "123",
+			expResult:   model.Transaction{},
+			expErr:      errors.New("record not found"),
 		},
 	}
+
 	dbConn, errDB := data.GetDatabaseConnection()
 	require.NoError(t, errDB)
 
@@ -54,13 +49,8 @@ func TestGenerateOTP(t *testing.T) {
 			instance := New(dbConn)
 
 			//WHEN
-			rs, err := instance.GenerateOTP(context.Background(), tc.givenResult)
-			randomFunc = func(min int, max int) int {
-				return 123456
-			}
-			defer func() {
-				randomFunc = randInt
-			}()
+			rs, err := instance.FindTransactionByOTP(context.Background(), tc.givenString)
+
 			//THEN
 			if tc.expErr != nil {
 				require.EqualError(t, err, tc.expErr.Error())

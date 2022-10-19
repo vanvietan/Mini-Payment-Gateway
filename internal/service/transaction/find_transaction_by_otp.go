@@ -6,12 +6,12 @@ import (
 	"pg/internal/model"
 )
 
-// CompareOTP compare OTP clients with db
-func (i impl) CompareOTP(ctx context.Context, input string) (model.Transaction, error) {
+// FindTransactionByOTP compare OTP clients with db
+func (i impl) FindTransactionByOTP(ctx context.Context, input string) (model.Transaction, error) {
 	/* find and compare OTP between
 	client and transaction created
 	*/
-	trans, err := i.txRepo.CompareOTP(ctx, input)
+	trans, err := i.txRepo.FindTransactionByOTP(ctx, input)
 	if err != nil {
 		log.Printf("error when compare OTP, error: %v", err)
 		return model.Transaction{}, err

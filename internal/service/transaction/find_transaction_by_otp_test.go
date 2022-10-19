@@ -12,50 +12,61 @@ package transaction
 //	"time"
 //)
 //
-//func TestFindTransactionByID(t *testing.T) {
-//	type findTransactionByID struct {
-//		mockID   int64
-//		mockResp model.Transaction
-//		mockErr  error
+//func TestFindTransactionByOTP(t *testing.T) {
+//	type compareOTP struct {
+//		mockIn    string
+//		mockTrans model.Transaction
+//		mockResp  model.Transaction
+//		mockErr   error
 //	}
 //	type arg struct {
-//		findTransactionByID findTransactionByID
-//		givenID             int64
-//		expRs               model.Transaction
-//		expErr              error
+//		compareOTP compareOTP
+//		givenIn    string
+//		expRs      model.Transaction
+//		expErr     error
 //	}
 //	tcs := map[string]arg{
 //		"success: ": {
-//			findTransactionByID: findTransactionByID{
-//				mockID: 100,
+//			compareOTP: compareOTP{
+//				mockIn: "123456",
+//				mockTrans: model.Transaction{
+//					ID:        100,
+//					CardID:    100,
+//					OrderID:   100,
+//					OTP:       "123456",
+//					Status:    "ACCEPTED",
+//					CreatedAt: time.Date(2022, 3, 14, 14, 0, 0, 0, time.UTC),
+//					UpdatedAt: time.Date(2022, 3, 14, 14, 0, 0, 0, time.UTC),
+//				},
 //				mockResp: model.Transaction{
 //					ID:        100,
 //					CardID:    100,
 //					OrderID:   100,
 //					OTP:       "123456",
-//					Status:    "PENDING",
+//					Status:    "ACCEPTED",
 //					CreatedAt: time.Date(2022, 3, 14, 14, 0, 0, 0, time.UTC),
 //					UpdatedAt: time.Date(2022, 3, 14, 14, 0, 0, 0, time.UTC),
 //				},
 //			},
-//			givenID: 100,
+//			givenIn: "123456",
 //			expRs: model.Transaction{
 //				ID:        100,
 //				CardID:    100,
 //				OrderID:   100,
 //				OTP:       "123456",
-//				Status:    "PENDING",
+//				Status:    "ACCEPTED",
 //				CreatedAt: time.Date(2022, 3, 14, 14, 0, 0, 0, time.UTC),
 //				UpdatedAt: time.Date(2022, 3, 14, 14, 0, 0, 0, time.UTC),
 //			},
 //		},
-//		"fail: error from repo": {
-//			findTransactionByID: findTransactionByID{
-//				mockID:   100,
-//				mockResp: model.Transaction{},
-//				mockErr:  errors.New("something wrong"),
+//		"fail: error when compare": {
+//			compareOTP: compareOTP{
+//				mockIn:    "123456",
+//				mockTrans: model.Transaction{},
+//				mockResp:  model.Transaction{},
+//				mockErr:   errors.New("something wrong"),
 //			},
-//			givenID: 100,
+//			givenIn: "123456",
 //			expRs:   model.Transaction{},
 //			expErr:  errors.New("something wrong"),
 //		},
@@ -64,12 +75,14 @@ package transaction
 //		t.Run(s, func(t *testing.T) {
 //			//GIVEN
 //			instance := new(mocks.Repository)
-//			instance.On("FindTransactionByID", mock.Anything, tc.findTransactionByID.mockID).
-//				Return(tc.findTransactionByID.mockResp, tc.findTransactionByID.mockErr)
+//			instance.On("FindTransactionByOTP", mock.Anything, tc.compareOTP.mockIn).
+//				Return(tc.compareOTP.mockResp, tc.compareOTP.mockErr)
+//			instance.On("UpdateTransaction", mock.Anything, tc.compareOTP.mockTrans).
+//				Return(tc.compareOTP.mockResp, tc.compareOTP.mockErr)
 //
 //			//WHEN
 //			svc := New(instance)
-//			rs, err := svc.FindTransactionByID(context.Background(), tc.givenID)
+//			rs, err := svc.FindTransactionByOTP(context.Background(), tc.givenIn)
 //
 //			//THEN
 //			if tc.expErr != nil {

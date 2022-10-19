@@ -1,6 +1,9 @@
 package model
 
-import "time"
+import (
+	"gorm.io/gorm"
+	"time"
+)
 
 // Transaction handle transaction and otp
 type Transaction struct {
@@ -11,4 +14,5 @@ type Transaction struct {
 	Status    Status
 	CreatedAt time.Time
 	UpdatedAt time.Time
+	DeletedAt gorm.DeletedAt
 }
