@@ -6,6 +6,7 @@ import (
 	"pg/internal/service/transaction"
 )
 
+// Handler handler
 type Handler struct {
 	TxSvc    transaction.Service
 	CardSvc  card.Service

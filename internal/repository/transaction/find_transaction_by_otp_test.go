@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-func TestCompareOTP(t *testing.T) {
+func TestFindTransactionByOTP(t *testing.T) {
 	type arg struct {
 		givenString string
 		expResult   model.Transaction

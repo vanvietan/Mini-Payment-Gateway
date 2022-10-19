@@ -14,7 +14,7 @@ import (
 func TestGenerateOTP(t *testing.T) {
 	type arg struct {
 		givenResult model.Transaction
-		expResult   string
+		expResult   model.Transaction
 		expErr      error
 	}
 	tcs := map[string]arg{
@@ -27,7 +27,14 @@ func TestGenerateOTP(t *testing.T) {
 				CreatedAt: time.Date(2022, 03, 14, 14, 0, 0, 0, time.UTC),
 				UpdatedAt: time.Date(2022, 03, 14, 14, 0, 0, 0, time.UTC),
 			},
-			expResult: "512369",
+			expResult: model.Transaction{
+				ID:        101,
+				CardID:    100,
+				OrderID:   100,
+				Status:    "PENDING",
+				CreatedAt: time.Date(2022, 03, 14, 14, 0, 0, 0, time.UTC),
+				UpdatedAt: time.Date(2022, 03, 14, 14, 0, 0, 0, time.UTC),
+			},
 		},
 		"fail: ": {
 			givenResult: model.Transaction{
@@ -38,7 +45,7 @@ func TestGenerateOTP(t *testing.T) {
 				CreatedAt: time.Date(2022, 03, 14, 14, 0, 0, 0, time.UTC),
 				UpdatedAt: time.Date(2022, 03, 14, 14, 0, 0, 0, time.UTC),
 			},
-			expResult: "",
+			expResult: model.Transaction{},
 			expErr:    errors.New("ERROR: duplicate key value violates unique constraint \"transactions_pkey\" (SQLSTATE 23505)"),
 		},
 	}

@@ -30,7 +30,7 @@ func TestFindTransactionByID(t *testing.T) {
 				UpdatedAt: time.Date(2022, 3, 14, 14, 0, 0, 0, time.UTC),
 			},
 		},
-		"fail:": {
+		"fail:record not found": {
 			givenID:   200,
 			expResult: model.Transaction{},
 			expErr:    errors.New("record not found"),

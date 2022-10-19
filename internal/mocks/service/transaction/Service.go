@@ -14,15 +14,29 @@ type Service struct {
 	mock.Mock
 }
 
+// AuthenticateTransaction provides a mock function with given fields: ctx, id, otp
+func (_m *Service) AuthenticateTransaction(ctx context.Context, id int64, otp string) error {
+	ret := _m.Called(ctx, id, otp)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, int64, string) error); ok {
+		r0 = rf(ctx, id, otp)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 // CreateTransaction provides a mock function with given fields: ctx, cardID, orderID
-func (_m *Service) CreateTransaction(ctx context.Context, cardID int64, orderID int64) (string, error) {
+func (_m *Service) CreateTransaction(ctx context.Context, cardID int64, orderID int64) (model.Transaction, error) {
 	ret := _m.Called(ctx, cardID, orderID)
 
-	var r0 string
-	if rf, ok := ret.Get(0).(func(context.Context, int64, int64) string); ok {
+	var r0 model.Transaction
+	if rf, ok := ret.Get(0).(func(context.Context, int64, int64) model.Transaction); ok {
 		r0 = rf(ctx, cardID, orderID)
 	} else {
-		r0 = ret.Get(0).(string)
+		r0 = ret.Get(0).(model.Transaction)
 	}
 
 	var r1 error
@@ -117,6 +131,27 @@ func (_m *Service) InitAuthentication(ctx context.Context, inputCard model.Card,
 	}
 
 	return r0, r1, r2
+}
+
+// InitPayment provides a mock function with given fields: ctx, transID
+func (_m *Service) InitPayment(ctx context.Context, transID int64) (model.Card, error) {
+	ret := _m.Called(ctx, transID)
+
+	var r0 model.Card
+	if rf, ok := ret.Get(0).(func(context.Context, int64) model.Card); ok {
+		r0 = rf(ctx, transID)
+	} else {
+		r0 = ret.Get(0).(model.Card)
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(context.Context, int64) error); ok {
+		r1 = rf(ctx, transID)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
 }
 
 type mockConstructorTestingTNewService interface {

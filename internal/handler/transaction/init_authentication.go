@@ -27,12 +27,5 @@ func (h Handler) InitAuthentication(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	http.Redirect(w, r, "/form", http.StatusOK)
 	common.ResponseJSON(w, http.StatusOK, toGetGenerateOTPResponse())
-}
-
-func toGetGenerateOTPResponse() OTPResponse {
-	return OTPResponse{
-		Message: "created a transaction",
-	}
 }
