@@ -15,8 +15,8 @@ func (h Handler) ProcessPay(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	card, err := h.TxSvc.InitPayment(r.Context(), transID)
-	if err != nil {
+	card, errH := h.TxSvc.InitPayment(r.Context(), transID)
+	if errH != nil {
 		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
 		return
 	}

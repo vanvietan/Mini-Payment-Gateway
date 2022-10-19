@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 	"pg/internal/handler/common"
+	"regexp"
 )
 
 type AuthenticatePayerResponse struct {
@@ -28,6 +29,10 @@ func checkOTP(r *http.Request) (string, error) {
 	}
 	otp := r.Form.Get("otp")
 	if otp == "" {
+		return "", errors.New("invalid OTP")
+	}
+	match6 := regexp.MustCompile(`^\d{6}$`)
+	if !match6.MatchString(otp) {
 		return "", errors.New("invalid OTP")
 	}
 	return otp, nil
