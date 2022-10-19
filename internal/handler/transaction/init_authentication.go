@@ -27,5 +27,5 @@ func (h Handler) InitAuthentication(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	common.ResponseJSON(w, http.StatusOK, toGetGenerateOTPResponse())
+	common.ResponseJSON(w, http.StatusOK, toGetAInitAuthenticateResponse())
 }
