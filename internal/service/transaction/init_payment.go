@@ -14,6 +14,9 @@ func (i impl) InitPayment(ctx context.Context, transID int64) (model.Card, error
 		log.Printf("error when get transaction by id %v ", err)
 		return model.Card{}, err
 	}
+	if trans.Status != model.StatusAccepted {
+		return model.Card{}, errors.New("user have not authenticated")
+	}
 
 	order, errO := i.orderRepo.GetOrderByID(ctx, trans.OrderID)
 	if err != nil {

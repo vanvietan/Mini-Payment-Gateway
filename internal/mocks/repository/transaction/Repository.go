@@ -15,14 +15,14 @@ type Repository struct {
 }
 
 // CreateTransaction provides a mock function with given fields: ctx, _a1
-func (_m *Repository) CreateTransaction(ctx context.Context, _a1 model.Transaction) (string, error) {
+func (_m *Repository) CreateTransaction(ctx context.Context, _a1 model.Transaction) (model.Transaction, error) {
 	ret := _m.Called(ctx, _a1)
 
-	var r0 string
-	if rf, ok := ret.Get(0).(func(context.Context, model.Transaction) string); ok {
+	var r0 model.Transaction
+	if rf, ok := ret.Get(0).(func(context.Context, model.Transaction) model.Transaction); ok {
 		r0 = rf(ctx, _a1)
 	} else {
-		r0 = ret.Get(0).(string)
+		r0 = ret.Get(0).(model.Transaction)
 	}
 
 	var r1 error

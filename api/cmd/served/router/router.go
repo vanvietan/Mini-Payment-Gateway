@@ -42,8 +42,8 @@ func (mr MasterRoute) initCardRoutes() {
 }
 func (mr MasterRoute) initTransactionRoutes() {
 	mr.Router.Group(func(r chi.Router) {
-		r.Post("/tx", mr.Handler.TransHandler.InitAuthentication)
-		r.Get("/form", mr.Handler.TransHandler.OTPForm)
-		r.Post("/form", mr.Handler.TransHandler.EnterOTP)
+		r.Post("/transaction", mr.Handler.TransHandler.InitAuthentication)
+		r.Post("/transactions/{id}", mr.Handler.TransHandler.AuthenticatePayer)
+		r.Put("/transaction/{id}", mr.Handler.TransHandler.ProcessPay)
 	})
 }

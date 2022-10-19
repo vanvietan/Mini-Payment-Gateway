@@ -21,9 +21,7 @@ func New(cardSvc cardService.Service, transactionSvc transactionService.Service,
 			CardSvc: cardSvc,
 		},
 		TransHandler: transaction.Handler{
-			TxSvc:    transactionSvc,
-			OrderSvc: orderSvc,
-			CardSvc:  cardSvc,
+			TxSvc: transactionSvc,
 		},
 	}
 }

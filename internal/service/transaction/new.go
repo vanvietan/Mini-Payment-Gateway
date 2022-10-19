@@ -12,10 +12,7 @@ import (
 type Service interface {
 	//CreateTransaction generate OTP and send back to clients
 	CreateTransaction(ctx context.Context, cardID int64, orderID int64) (model.Transaction, error)
-
-	//FindTransactionByOTP compare OTP clients with db
-	FindTransactionByOTP(ctx context.Context, input string) (model.Transaction, error)
-
+	
 	//DeleteTransaction delete
 	DeleteTransaction(ctx context.Context, transID int64) error
 
@@ -27,6 +24,9 @@ type Service interface {
 
 	//InitPayment init a payment
 	InitPayment(ctx context.Context, transID int64) (model.Card, error)
+
+	//AuthenticateTransaction authenticate transaction
+	AuthenticateTransaction(ctx context.Context, id int64, otp string) error
 }
 type impl struct {
 	txRepo    txRepo.Repository

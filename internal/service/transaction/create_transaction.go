@@ -7,6 +7,7 @@ import (
 	"pg/internal/model"
 	"pg/internal/util"
 	"strconv"
+	"time"
 )
 
 const (
@@ -46,5 +47,6 @@ func (i impl) CreateTransaction(ctx context.Context, cardID int64, orderID int64
 }
 
 func randInt(min int, max int) int {
+	rand.Seed(time.Now().UnixNano())
 	return min + rand.Intn(max-min)
 }
