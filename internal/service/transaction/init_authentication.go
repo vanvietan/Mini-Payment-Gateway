@@ -13,13 +13,21 @@ func (i impl) InitAuthentication(ctx context.Context, inputCard model.Card, inpu
 		find card existence
 		create an order with amount
 	*/
-	card, err := i.cardSvc.GetCardByNumber(ctx, inputCard.Number)
+
+	ID, errG := getNextIDFunc()
+	if errG != nil {
+		log.Printf("error when generate ID %v ", errG)
+		return model.Card{}, model.Order{}, errG
+	}
+	inputOrder.ID = ID
+
+	card, err := i.cardRepo.GetCardByNumber(ctx, inputCard.Number)
 	if err != nil {
 		log.Printf("error when get card by number %v ", err)
 		return model.Card{}, model.Order{}, err
 	}
-	order, errO := i.orderSvc.CreateOrder(ctx, inputOrder)
-	if err != nil {
+	order, errO := i.orderRepo.CreateOrder(ctx, inputOrder)
+	if errO != nil {
 		log.Printf("error when create an order %v ", errO)
 		return model.Card{}, model.Order{}, errO
 	}

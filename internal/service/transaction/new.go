@@ -3,9 +3,9 @@ package transaction
 import (
 	"context"
 	"pg/internal/model"
+	cardRepo "pg/internal/repository/card"
+	orderRepo "pg/internal/repository/order"
 	txRepo "pg/internal/repository/transaction"
-	cardSvc "pg/internal/service/card"
-	orderSvc "pg/internal/service/order"
 )
 
 // Service contains all service transaction
@@ -26,16 +26,16 @@ type Service interface {
 	InitAuthentication(ctx context.Context, inputCard model.Card, inputOrder model.Order) (model.Card, model.Order, error)
 }
 type impl struct {
-	txRepo   txRepo.Repository
-	cardSvc  cardSvc.Service
-	orderSvc orderSvc.Service
+	txRepo    txRepo.Repository
+	cardRepo  cardRepo.Repository
+	orderRepo orderRepo.Repository
 }
 
 // New DI
-func New(transaction txRepo.Repository, card cardSvc.Service, order orderSvc.Service) Service {
+func New(transaction txRepo.Repository, card cardRepo.Repository, order orderRepo.Repository) Service {
 	return impl{
-		txRepo:   transaction,
-		cardSvc:  card,
-		orderSvc: order,
+		txRepo:    transaction,
+		cardRepo:  card,
+		orderRepo: order,
 	}
 }

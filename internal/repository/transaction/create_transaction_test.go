@@ -55,12 +55,7 @@ func TestGenerateOTP(t *testing.T) {
 
 			//WHEN
 			rs, err := instance.CreateTransaction(context.Background(), tc.givenResult)
-			randomFunc = func(min int, max int) int {
-				return 123456
-			}
-			defer func() {
-				randomFunc = randInt
-			}()
+
 			//THEN
 			if tc.expErr != nil {
 				require.EqualError(t, err, tc.expErr.Error())
