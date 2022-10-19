@@ -24,6 +24,9 @@ type Service interface {
 
 	//InitAuthentication check card in db and create an order
 	InitAuthentication(ctx context.Context, inputCard model.Card, inputOrder model.Order) (model.Card, model.Order, error)
+
+	//InitPayment init a payment
+	InitPayment(ctx context.Context, transID int64) (model.Card, error)
 }
 type impl struct {
 	txRepo    txRepo.Repository

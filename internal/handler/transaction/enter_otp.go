@@ -17,25 +17,15 @@ func (h Handler) EnterOTP(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+	
 	trans, errC := h.TxSvc.FindTransactionByOTP(r.Context(), inputOTP)
 	if errC != nil {
 		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
 		return
 	}
-	order, errF := h.OrderSvc.GetOrderByID(r.Context(), trans.OrderID)
-	if errF != nil {
-		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
-		return
-	}
 
-	card, errD := h.CardSvc.DeductCard(r.Context(), trans.CardID, order.Amount)
-	if errD != nil {
-		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
-		return
-	}
-
-	errG := h.TxSvc.DeleteTransaction(r.Context(), trans.ID)
-	if errG != nil {
+	card, err := h.TxSvc.InitPayment(r.Context(), trans.ID)
+	if err != nil {
 		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
 		return
 	}
@@ -52,7 +42,10 @@ func toSuccessResponse(card model.Card) PayResponse {
 }
 
 func checkOTP(r *http.Request) (string, error) {
-	r.ParseForm()
+	err := r.ParseForm()
+	if err != nil {
+		return "", err
+	}
 	otp := r.Form.Get("otp")
 	//transID := r.Form.Get("trans")
 	if otp == "" {
