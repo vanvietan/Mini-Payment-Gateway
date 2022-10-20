@@ -13,7 +13,7 @@ CREATE TABLE "cards" (
                          "user_id" bigint ,
                          "cvv" varchar(20),
                          "balance" bigint CHECK (balance > 0),
-                         "deleted_at" timestamp,
+--                          "deleted_at" timestamp,
                          "created_at" timestamp,
                          "updated_at" timestamp
 );

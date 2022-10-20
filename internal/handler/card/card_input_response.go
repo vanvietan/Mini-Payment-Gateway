@@ -11,6 +11,8 @@ import (
 	"time"
 )
 
+const maxNumber = 999999999999
+
 // ACardInput input from clients
 type ACardInput struct {
 	Number      string    `json:"number"`
@@ -35,7 +37,7 @@ func (c ACardInput) ValidateAndMap() (model.Card, error) {
 	if c.ExpiredDate.Equal(time.Now()) || c.ExpiredDate.Before(time.Now()) {
 		return model.Card{}, errors.New("invalid expired date")
 	}
-	if c.Balance <= 0 {
+	if c.Balance <= 0 || c.Balance > maxNumber {
 		return model.Card{}, errors.New("invalid balance")
 	}
 

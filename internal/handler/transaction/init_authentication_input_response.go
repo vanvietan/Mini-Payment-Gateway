@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+const maxNumber = 9999999999
+
 // InitAuthenticationInput contains card information and amount
 type InitAuthenticationInput struct {
 	Number      string    `json:"number"`
@@ -18,7 +20,7 @@ type InitAuthenticationInput struct {
 }
 
 func (c InitAuthenticationInput) checkValidate() (model.Card, model.Order, error) {
-	if c.Amount <= 0 {
+	if c.Amount <= 0 || c.Amount > maxNumber {
 		return model.Card{}, model.Order{}, errors.New("invalid amount")
 	}
 	match16 := regexp.MustCompile(`^\d{16}$`)
@@ -41,7 +43,7 @@ func (c InitAuthenticationInput) checkValidate() (model.Card, model.Order, error
 		}, nil
 }
 
-// InitAuthenticateResponse init authenticate reponse
+// InitAuthenticateResponse init authenticate response
 type InitAuthenticateResponse struct {
 	Message string `json:"message"`
 	HTML    string `json:"html"`
