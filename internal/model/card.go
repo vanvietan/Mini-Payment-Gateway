@@ -1,7 +1,6 @@
 package model
 
 import (
-	"gorm.io/gorm"
 	"time"
 )
 
@@ -13,7 +12,6 @@ type Card struct {
 	CVV         string
 	Balance     int64
 	UserID      int64
-	DeletedAt   gorm.DeletedAt `json:"deleted_at,omitempty"`
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 }
