@@ -174,6 +174,7 @@ func TestInitAuthentication(t *testing.T) {
 				}
 				return 99, nil
 			}
+			//monkey patching
 			defer func() {
 				getNextIDFunc = util.GetNextId
 			}()
