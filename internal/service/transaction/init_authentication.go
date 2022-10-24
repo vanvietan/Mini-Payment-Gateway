@@ -14,6 +14,12 @@ func (i impl) InitAuthentication(ctx context.Context, inputCard model.Card, inpu
 		create an order with amount
 	*/
 
+	card, err := i.cardRepo.GetCardByNumber(ctx, inputCard.Number)
+	if err != nil {
+		log.Printf("error when get card by number %v ", err)
+		return model.Card{}, model.Order{}, err
+	}
+
 	ID, errG := getNextIDFunc()
 	if errG != nil {
 		log.Printf("error when generate ID %v ", errG)
@@ -21,11 +27,6 @@ func (i impl) InitAuthentication(ctx context.Context, inputCard model.Card, inpu
 	}
 	inputOrder.ID = ID
 
-	card, err := i.cardRepo.GetCardByNumber(ctx, inputCard.Number)
-	if err != nil {
-		log.Printf("error when get card by number %v ", err)
-		return model.Card{}, model.Order{}, err
-	}
 	order, errO := i.orderRepo.CreateOrder(ctx, inputOrder)
 	if errO != nil {
 		log.Printf("error when create an order %v ", errO)
