@@ -62,7 +62,7 @@ func TestAuthenticateTransaction(t *testing.T) {
 			authenticateTransactionMockCalled: true,
 			givenID:                           "100",
 			givenOTP:                          "123456",
-			expRs:                             "{\"code\":\"internal_server_error\", \"description\":\"Incorrect OTP authenticate\"}",
+			expRs:                             "{\"code\":\"internal_server_error\", \"description\":\"Something went wrong please try again later!\"}",
 			expHTTPCode:                       http.StatusInternalServerError,
 		},
 	}

@@ -31,6 +31,9 @@ func (i InitAuthenticationInput) checkValidateAndMap() (model.Card, model.Order,
 	if !match3.MatchString(i.CVV) {
 		return model.Card{}, model.Order{}, errors.New("invalid CVV")
 	}
+	if i.ExpiredDate.Before(time.Now()) {
+		return model.Card{}, model.Order{}, errors.New("invalid expired date")
+	}
 	return model.Card{
 			Number:      i.Number,
 			ExpiredDate: i.ExpiredDate,

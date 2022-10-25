@@ -134,8 +134,6 @@ func TestInitAuthentication(t *testing.T) {
 				mockSvc.ExpectedCalls = []*mock.Call{
 					mockSvc.On("InitAuthentication", mock.Anything, tc.initAuthentication.mockInCard, tc.initAuthentication.mockInOrder).
 						Return(tc.initAuthentication.mockOutCard, tc.initAuthentication.mockOutOrder, tc.initAuthentication.mockErr),
-					mockSvc.On("CreateTransaction", mock.Anything, tc.initAuthentication.mockOutCard.ID, tc.initAuthentication.mockOutOrder.ID).
-						Return(tc.initAuthentication.mockOutTrans, tc.initAuthentication.mockErrB),
 				}
 			}
 			req := httptest.NewRequest(http.MethodPost, "/transaction", strings.NewReader(tc.givenBody))
