@@ -50,7 +50,7 @@ type data struct {
 
 func toOTPResponse(w http.ResponseWriter, t model.Transaction) {
 	id := data{ID: strconv.FormatInt(t.ID, 10)}
-	tmp, err := template.ParseFiles("internal/views/otp.html")
+	tmp, err := template.ParseFiles("api/internal/views/otp.html")
 	if err != nil {
 		log.Print(err)
 	}
