@@ -3,23 +3,15 @@ package transaction
 import (
 	"errors"
 	"net/http"
-	"pg/internal/handler/common"
 	"regexp"
 )
 
-type AuthenticatePayerResponse struct {
+type AuthenticateTransaction struct {
 	Message string `json:"message"`
 }
 
-func toAuthenticatePayerResponse() AuthenticatePayerResponse {
-	return AuthenticatePayerResponse{Message: "Successful Authenticated"}
-}
-
-func toWrongOTPResponse() common.CommonErrorResponse {
-	return common.CommonErrorResponse{
-		Code:        "internal_server_error",
-		Description: "Incorrect OTP authenticate",
-	}
+func toAuthenticateTransactionResponse() AuthenticateTransaction {
+	return AuthenticateTransaction{Message: "Successful Authenticated"}
 }
 
 func checkOTP(r *http.Request) (string, error) {
