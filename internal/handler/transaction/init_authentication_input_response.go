@@ -43,7 +43,8 @@ func (i InitAuthenticationInput) checkValidateAndMap() (model.Card, model.Order,
 // InitAuthenticateResponse init authenticate response
 type InitAuthenticateResponse struct {
 	Message string `json:"message"`
-	//HTML    string `json:"html"`
+	CardID  int64  `json:"cardID"`
+	OrderID int64  `json:"orderID"`
 }
 
 func checkValidationAndAmount(r *http.Request) (model.Card, model.Order, error) {
@@ -65,8 +66,10 @@ func checkValidationAndAmount(r *http.Request) (model.Card, model.Order, error) 
 //			HTML:    "<!DOCTYPE html>\n<html>\n<body>\n<h1>Submit your OTP</h1>\n<form action=\"/transactions\" method=\"post\">\n    <label for=\"otp\">OTP:</label>\n    <input type=\"text\" id=\"otp\" name=\"otp\"><br><br>\n    <input type=\"hidden\" id=\"trans\" name=\"trans\" value={{.trans}}><br><br>\n    <input type=\"submit\" value=\"Submit\">\n</form>\n<p>Click the \"Submit\" button and the form-data will be sent to a page on th server called \"/form\".</p>\n</body>\n</html>",
 //		}
 //	}
-func toGetAInitAuthenticateResponse(c model.Card) InitAuthenticateResponse {
+func toGetAInitAuthenticateResponse(c model.Card, o model.Order) InitAuthenticateResponse {
 	return InitAuthenticateResponse{
-		Message: "your card " + c.Number + " is valid",
+		Message: "card " + c.Number + " is valid",
+		CardID:  c.ID,
+		OrderID: o.ID,
 	}
 }

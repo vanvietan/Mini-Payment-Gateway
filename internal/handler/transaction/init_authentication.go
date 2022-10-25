@@ -15,7 +15,7 @@ func (h Handler) InitAuthentication(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	card, _, errB := h.TxSvc.InitAuthentication(r.Context(), cardInput, orderInput)
+	card, order, errB := h.TxSvc.InitAuthentication(r.Context(), cardInput, orderInput)
 	if errB != nil {
 		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
 		return
@@ -27,5 +27,5 @@ func (h Handler) InitAuthentication(w http.ResponseWriter, r *http.Request) {
 	//	return
 	//}
 
-	common.ResponseJSON(w, http.StatusOK, toGetAInitAuthenticateResponse(card))
+	common.ResponseJSON(w, http.StatusOK, toGetAInitAuthenticateResponse(card, order))
 }
