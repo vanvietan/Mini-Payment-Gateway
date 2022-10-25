@@ -19,6 +19,10 @@ func (i impl) InitAuthentication(ctx context.Context, inputCard model.Card, inpu
 		log.Printf("error when get card by number %v ", err)
 		return model.Card{}, model.Order{}, err
 	}
+	//check amount and balance
+	if card.Balance < 0 || card.Balance-inputOrder.Amount < 0 {
+		return model.Card{}, model.Order{}, err
+	}
 
 	ID, errG := getNextIDFunc()
 	if errG != nil {

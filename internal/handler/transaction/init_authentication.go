@@ -15,17 +15,17 @@ func (h Handler) InitAuthentication(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	card, order, errB := h.TxSvc.InitAuthentication(r.Context(), cardInput, orderInput)
+	card, _, errB := h.TxSvc.InitAuthentication(r.Context(), cardInput, orderInput)
 	if errB != nil {
 		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
 		return
 	}
 
-	_, errX := h.TxSvc.CreateTransaction(r.Context(), card.ID, order.ID)
-	if errX != nil {
-		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
-		return
-	}
+	//_, errX := h.TxSvc.CreateTransaction(r.Context(), card.ID, order.ID)
+	//if errX != nil {
+	//	common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
+	//	return
+	//}
 
-	common.ResponseJSON(w, http.StatusOK, toGetAInitAuthenticateResponse())
+	common.ResponseJSON(w, http.StatusOK, toGetAInitAuthenticateResponse(card))
 }

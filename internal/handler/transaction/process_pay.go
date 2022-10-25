@@ -7,7 +7,7 @@ import (
 
 // ProcessPay process payment
 func (h Handler) ProcessPay(w http.ResponseWriter, r *http.Request) {
-	transID, err := validateIDAndMap(r)
+	transID, err := validateID(r)
 	if err != nil {
 		common.ResponseJSON(w, http.StatusBadRequest, common.CommonErrorResponse{
 			Code:        "invalid_request",

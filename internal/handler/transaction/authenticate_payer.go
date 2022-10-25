@@ -15,7 +15,7 @@ func (h Handler) AuthenticatePayer(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	transID, err := validateIDAndMap(r)
+	transID, err := validateID(r)
 	if err != nil {
 		common.ResponseJSON(w, http.StatusBadRequest, common.CommonErrorResponse{
 			Code:        "invalid_request",
@@ -25,7 +25,7 @@ func (h Handler) AuthenticatePayer(w http.ResponseWriter, r *http.Request) {
 	}
 	errA := h.TxSvc.AuthenticateTransaction(r.Context(), transID, inputOTP)
 	if errA != nil {
-		common.ResponseJSON(w, http.StatusInternalServerError, toWrongOTPResponse())
+		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
 		return
 	}
 

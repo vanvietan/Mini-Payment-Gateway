@@ -42,7 +42,7 @@ func (mr MasterRoute) initCardRoutes() {
 }
 func (mr MasterRoute) initTransactionRoutes() {
 	mr.Router.Group(func(r chi.Router) {
-		r.Post("/transaction", mr.Handler.TransHandler.InitAuthentication)
+		r.Post("/initAuthentication", mr.Handler.TransHandler.InitAuthentication)
 		r.Post("/transactions/{id}", mr.Handler.TransHandler.AuthenticatePayer)
 		r.Put("/transaction/{id}", mr.Handler.TransHandler.ProcessPay)
 	})
