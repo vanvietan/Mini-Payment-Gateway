@@ -20,12 +20,5 @@ func (h Handler) InitAuthentication(w http.ResponseWriter, r *http.Request) {
 		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
 		return
 	}
-
-	//_, errX := h.TxSvc.CreateTransaction(r.Context(), card.ID, order.ID)
-	//if errX != nil {
-	//	common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
-	//	return
-	//}
-
 	common.ResponseJSON(w, http.StatusOK, toGetAInitAuthenticateResponse(card, order))
 }
