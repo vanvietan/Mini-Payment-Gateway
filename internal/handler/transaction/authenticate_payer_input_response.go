@@ -48,7 +48,7 @@ type data struct {
 //	}
 //}
 
-func toOTPResponse(w http.ResponseWriter, t model.Transaction) string {
+func toOTPResponse(w http.ResponseWriter, t model.Transaction) {
 	id := data{ID: strconv.FormatInt(t.ID, 10)}
 	tmp, err := template.ParseFiles("internal/views/otp.html")
 	if err != nil {
@@ -60,5 +60,4 @@ func toOTPResponse(w http.ResponseWriter, t model.Transaction) string {
 		log.Print(err2)
 	}
 
-	return "created a transaction"
 }

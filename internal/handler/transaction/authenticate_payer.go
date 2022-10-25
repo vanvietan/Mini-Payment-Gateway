@@ -18,6 +18,6 @@ func (h Handler) AuthenticatePayer(w http.ResponseWriter, r *http.Request) {
 		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
 		return
 	}
-
-	common.ResponseJSON(w, http.StatusOK, toOTPResponse(w, trans))
+	toOTPResponse(w, trans)
+	//common.ResponseJSON(w, http.StatusOK, toAuthenticatePayerResponse(w, trans))
 }
