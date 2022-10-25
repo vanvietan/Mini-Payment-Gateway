@@ -2,10 +2,10 @@ package router
 
 import (
 	"github.com/go-chi/chi/v5"
-	"pg/internal/handler"
-	cardSvc "pg/internal/service/card"
-	orderSvc "pg/internal/service/order"
-	transactionSvc "pg/internal/service/transaction"
+	"pg/api/internal/handler"
+	cardSvc "pg/api/internal/service/card"
+	orderSvc "pg/api/internal/service/order"
+	transactionSvc "pg/api/internal/service/transaction"
 )
 
 // MasterRoute masterRoute
