@@ -19,5 +19,5 @@ func (h Handler) AuthenticatePayer(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	common.ResponseJSON(w, http.StatusOK, toAuthenticatePayerResponse(trans))
+	common.ResponseJSON(w, http.StatusOK, toOTPResponse(w, trans))
 }

@@ -2,6 +2,8 @@ package transaction
 
 import (
 	"errors"
+	log "github.com/sirupsen/logrus"
+	"html/template"
 	"net/http"
 	"pg/internal/model"
 	"strconv"
@@ -24,9 +26,39 @@ type authenticateResponse struct {
 	HTML    string `json:"html"`
 }
 
-func toAuthenticatePayerResponse(t model.Transaction) authenticateResponse {
-	return authenticateResponse{
-		Message: "created a transaction",
-		HTML:    "<!DOCTYPE html>\n<html>\n<body>\n<h1>Submit your OTP</h1>\n<form action=\"/authenticateTransaction/{id}\" method=\"post\">\n    <label for=\"otp\">OTP:</label>\n    <input type=\"text\" id=\"otp\" name=\"otp\"><br><br>\n    <input type=\"hidden\" id=\"trans\" name=\"trans\" value={{.trans}}><br><br>\n    <input type=\"submit\" value=\"Submit\">\n</form>\n<p>Click the \"Submit\" button and the form-data will be sent to a page on th server called \"/form\".</p>\n</body>\n</html>",
+type data struct {
+	ID string
+}
+
+//func toAuthenticatePayerResponse(w http.ResponseWriter, t model.Transaction) authenticateResponse {
+//	id := data{ID: strconv.FormatInt(t.ID, 10)}
+//	tmp, err := template.ParseFiles("internal/views/otp.html")
+//	if err != nil {
+//		log.Print(err)
+//	}
+//
+//	err2 := tmp.Execute(w, id)
+//	if err2 != nil {
+//		log.Print(err2)
+//	}
+//
+//	return authenticateResponse{
+//		Message: "created a transaction",
+//		HTML:    "<!DOCTYPE html>\n<html>\n<body>\n<h1>Submit your OTP</h1>\n<form action=\"/authenticateTransaction/{{.ID}}\" method=\"post\">\n    <label for=\"otp\">OTP:</label>\n    <input type=\"text\" id=\"otp\" name=\"otp\"><br><br>\n    <input type=\"hidden\" id=\"trans\" name=\"trans\" value={{.trans}}><br><br>\n    <input type=\"submit\" value=\"Submit\">\n</form>\n<p>Click the \"Submit\" button and the form-data will be sent to a page on th server called \"/form\".</p>\n</body>\n</html>",
+//	}
+//}
+
+func toOTPResponse(w http.ResponseWriter, t model.Transaction) string {
+	id := data{ID: strconv.FormatInt(t.ID, 10)}
+	tmp, err := template.ParseFiles("internal/views/otp.html")
+	if err != nil {
+		log.Print(err)
 	}
+
+	err2 := tmp.Execute(w, id)
+	if err2 != nil {
+		log.Print(err2)
+	}
+
+	return "created a transaction"
 }
