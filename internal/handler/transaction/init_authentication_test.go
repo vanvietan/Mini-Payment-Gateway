@@ -136,7 +136,7 @@ func TestInitAuthentication(t *testing.T) {
 						Return(tc.initAuthentication.mockOutCard, tc.initAuthentication.mockOutOrder, tc.initAuthentication.mockErr),
 				}
 			}
-			req := httptest.NewRequest(http.MethodPost, "/transaction", strings.NewReader(tc.givenBody))
+			req := httptest.NewRequest(http.MethodPost, "/initAuthentication", strings.NewReader(tc.givenBody))
 			routeCtx := chi.NewRouteContext()
 			ctx := context.WithValue(req.Context(), chi.RouteCtxKey, routeCtx)
 			req = req.WithContext(ctx)

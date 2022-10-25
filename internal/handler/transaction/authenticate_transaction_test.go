@@ -77,7 +77,7 @@ func TestAuthenticateTransaction(t *testing.T) {
 				}
 			}
 			// Given
-			req := httptest.NewRequest(http.MethodPost, "/transactions/", nil)
+			req := httptest.NewRequest(http.MethodPost, "/authenticateTransaction/", nil)
 			routeCtx := chi.NewRouteContext()
 			routeCtx.URLParams.Add("id", tc.givenID)
 			form := url.Values{}

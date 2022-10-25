@@ -84,7 +84,7 @@ func TestProcessPay(t *testing.T) {
 						Return(tc.processPay.mockResp, tc.processPay.mockErr),
 				}
 			}
-			req := httptest.NewRequest(http.MethodPut, "/transaction/", nil)
+			req := httptest.NewRequest(http.MethodPut, "/processPay/", nil)
 			routeCtx := chi.NewRouteContext()
 			routeCtx.URLParams.Add("id", tc.givenID)
 
