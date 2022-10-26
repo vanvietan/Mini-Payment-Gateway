@@ -7,13 +7,13 @@ import (
 	"net/http"
 	"pg/api/cmd/served/router"
 	"pg/api/data"
-	cardRepo "pg/internal/repository/card"
-	orderRepo "pg/internal/repository/order"
-	transactionRepo "pg/internal/repository/transaction"
-	cardSvc "pg/internal/service/card"
-	orderSvc "pg/internal/service/order"
-	transactionSvc "pg/internal/service/transaction"
-	"pg/internal/util"
+	cardRepo "pg/api/internal/repository/card"
+	orderRepo "pg/api/internal/repository/order"
+	transactionRepo "pg/api/internal/repository/transaction"
+	cardSvc "pg/api/internal/service/card"
+	orderSvc "pg/api/internal/service/order"
+	transactionSvc "pg/api/internal/service/transaction"
+	"pg/api/internal/util"
 )
 
 func main() {

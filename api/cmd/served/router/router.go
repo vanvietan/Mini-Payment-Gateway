@@ -2,10 +2,10 @@ package router
 
 import (
 	"github.com/go-chi/chi/v5"
-	"pg/internal/handler"
-	cardSvc "pg/internal/service/card"
-	orderSvc "pg/internal/service/order"
-	transactionSvc "pg/internal/service/transaction"
+	"pg/api/internal/handler"
+	cardSvc "pg/api/internal/service/card"
+	orderSvc "pg/api/internal/service/order"
+	transactionSvc "pg/api/internal/service/transaction"
 )
 
 // MasterRoute masterRoute
@@ -42,8 +42,9 @@ func (mr MasterRoute) initCardRoutes() {
 }
 func (mr MasterRoute) initTransactionRoutes() {
 	mr.Router.Group(func(r chi.Router) {
-		r.Post("/transaction", mr.Handler.TransHandler.InitAuthentication)
-		r.Post("/transactions/{id}", mr.Handler.TransHandler.AuthenticatePayer)
-		r.Put("/transaction/{id}", mr.Handler.TransHandler.ProcessPay)
+		r.Post("/initAuthentication", mr.Handler.TransHandler.InitAuthentication)
+		r.Post("/authenticatePayer", mr.Handler.TransHandler.AuthenticatePayer)
+		r.Post("/authenticateTransaction/{id}", mr.Handler.TransHandler.AuthenticateTransaction)
+		r.Put("/processPay/{id}", mr.Handler.TransHandler.ProcessPay)
 	})
 }

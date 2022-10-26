@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Submit your OTP</h1>
+<form action="/authenticateTransaction/{{.ID}}" method="post">
+    <label for="otp">OTP:</label>
+    <input type="text" id="otp" name="otp"><br><br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>
