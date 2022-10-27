@@ -3,7 +3,7 @@ package card
 import (
 	"encoding/json"
 	"net/http"
-	common2 "pg/api/internal/handler/common"
+	"pg/api/internal/handler/common"
 	"pg/api/internal/model"
 )
 
@@ -11,7 +11,7 @@ import (
 func (h Handler) AddCard(w http.ResponseWriter, r *http.Request) {
 	reqBody, err := checkValidation(r)
 	if err != nil {
-		common2.ResponseJSON(w, http.StatusBadRequest, common2.CommonErrorResponse{
+		common.ResponseJSON(w, http.StatusBadRequest, common.CommonErrorResponse{
 			Code:        "invalid_request",
 			Description: err.Error(),
 		})
@@ -19,10 +19,10 @@ func (h Handler) AddCard(w http.ResponseWriter, r *http.Request) {
 	}
 	cardS, errS := h.CardSvc.AddCard(r.Context(), reqBody)
 	if errS != nil {
-		common2.ResponseJSON(w, http.StatusInternalServerError, common2.InternalCommonErrorResponse)
+		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
 		return
 	}
-	common2.ResponseJSON(w, http.StatusOK, toGetACardResponse(cardS))
+	common.ResponseJSON(w, http.StatusOK, toGetACardResponse(cardS))
 }
 
 func checkValidation(r *http.Request) (model.Card, error) {
