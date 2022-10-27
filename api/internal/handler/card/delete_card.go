@@ -2,14 +2,14 @@ package card
 
 import (
 	"net/http"
-	common2 "pg/api/internal/handler/common"
+	"pg/api/internal/handler/common"
 )
 
 // DeleteCard delete a card
 func (h Handler) DeleteCard(w http.ResponseWriter, r *http.Request) {
-	cardID, err := validateIDAndMap(r)
+	cardID, err := validateID(r)
 	if err != nil {
-		common2.ResponseJSON(w, http.StatusBadRequest, common2.CommonErrorResponse{
+		common.ResponseJSON(w, http.StatusBadRequest, common.CommonErrorResponse{
 			Code:        "invalid_request",
 			Description: err.Error(),
 		})
@@ -17,8 +17,8 @@ func (h Handler) DeleteCard(w http.ResponseWriter, r *http.Request) {
 	}
 	errD := h.CardSvc.DeleteCard(r.Context(), cardID)
 	if errD != nil {
-		common2.ResponseJSON(w, http.StatusInternalServerError, common2.InternalCommonErrorResponse)
+		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
 		return
 	}
-	common2.ResponseJSON(w, http.StatusOK, toSuccessDelete())
+	common.ResponseJSON(w, http.StatusOK, toSuccessDelete())
 }

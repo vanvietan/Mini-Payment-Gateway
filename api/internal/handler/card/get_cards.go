@@ -4,7 +4,7 @@ import (
 	"errors"
 	"math"
 	"net/http"
-	common2 "pg/api/internal/handler/common"
+	"pg/api/internal/handler/common"
 	"strconv"
 )
 
@@ -12,9 +12,9 @@ const maxLimit = 20
 
 // GetCards get all cards
 func (h Handler) GetCards(w http.ResponseWriter, r *http.Request) {
-	limit, lastID, err := validateAndMap(r)
+	limit, lastID, err := validate(r)
 	if err != nil {
-		common2.ResponseJSON(w, http.StatusBadRequest, common2.CommonErrorResponse{
+		common.ResponseJSON(w, http.StatusBadRequest, common.CommonErrorResponse{
 			Code:        "invalid_request",
 			Description: err.Error(),
 		})
@@ -22,14 +22,14 @@ func (h Handler) GetCards(w http.ResponseWriter, r *http.Request) {
 	}
 	cards, errS := h.CardSvc.GetCards(r.Context(), limit, lastID)
 	if errS != nil {
-		common2.ResponseJSON(w, http.StatusInternalServerError, common2.InternalCommonErrorResponse)
+		common.ResponseJSON(w, http.StatusInternalServerError, common.InternalCommonErrorResponse)
 		return
 	}
-	resp := dataToResponseArray(cards)
-	common2.ResponseJSON(w, http.StatusOK, toGetCardsResponse(resp))
+
+	common.ResponseJSON(w, http.StatusOK, toGetCardsResponse(dataToResponseArray(cards)))
 }
 
-func validateAndMap(r *http.Request) (int, int64, error) {
+func validate(r *http.Request) (int, int64, error) {
 	limit, err := strconv.Atoi(r.URL.Query().Get("limit"))
 	if err != nil {
 		return 0, 0, errors.New("limit must be a number")
