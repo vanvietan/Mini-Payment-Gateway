@@ -62,7 +62,7 @@ type ACardResponse struct {
 	UpdatedAt   time.Time `json:"updated_at"`
 }
 
-func validateIDAndMap(r *http.Request) (int64, error) {
+func validateID(r *http.Request) (int64, error) {
 	ID, err := strconv.ParseInt(chi.URLParam(r, "id"), 10, 64)
 	if err != nil {
 		return 0, errors.New("id must be a number")

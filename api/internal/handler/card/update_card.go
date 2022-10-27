@@ -15,7 +15,7 @@ func (h Handler) UpdateCard(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	cardID, errI := validateIDAndMap(r)
+	cardID, errI := validateID(r)
 	if errI != nil {
 		common2.ResponseJSON(w, http.StatusBadRequest, common2.CommonErrorResponse{
 			Code:        "invalid_request",

@@ -7,7 +7,7 @@ import (
 
 // GetCardByID get a card by id
 func (h Handler) GetCardByID(w http.ResponseWriter, r *http.Request) {
-	cardID, err := validateIDAndMap(r)
+	cardID, err := validateID(r)
 	if err != nil {
 		common2.ResponseJSON(w, http.StatusBadRequest, common2.CommonErrorResponse{
 			Code:        "invalid_request",
